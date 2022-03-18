@@ -14,6 +14,10 @@ static m_vaccum_event_handler_t     m_evt_handler;                  // Event han
 static vaccum_param_t               m_vaccum_param;                 // vaccum parameters.
 static bool                         m_ble_nus_configured = false;   // Has the BLE battery service been initalized?
 
+/** @brief Timer for periodic battery measurement.
+ */
+APP_TIMER_DEF(vaccum_app_timer_id);
+
 /**@brief Function for passing the BLE event to the vaccum module.
  *
  * @details This callback function will be called from the BLE handling module.
@@ -22,7 +26,7 @@ static bool                         m_ble_nus_configured = false;   // Has the B
  */
 static void vaccum_on_ble_evt(ble_evt_t * p_ble_evt)
 {
-
+    ble_nus_on_ble_evt(&m_nus, p_ble_evt);
 }
 
 
@@ -62,8 +66,49 @@ static uint32_t vaccum_service_init(bool major_minor_fw_ver_changed)
     return NRF_SUCCESS;
 }
 
+static void app_timer_periodic_handler(void* temp)
+{
+    static uint8_t i = 'a', j = 'a';
+    uint32_t err_code;
+
+    uint8_t data[16];
+    uint16_t len;
+
+    data[0] = 0xaa;
+    data[1] = 0x55;    
+    data[2] = 3;
+    data[3] = i;
+    data[4] = j;
+    data[5] = 256-(data[0]+data[1]+data[2]+data[3]+data[4]);
+    data[6] = 0x0d;
+    data[7] = 0x0a;
+    
+    i = i+1;
+    j = j+1;
+
+    if (i == 'e') i = 'a';
+    if (j == 'v') j = 'a';
+
+    len = 8;
+
+    NRF_LOG_INFO("NUS App timer \r\n");
+  
+    do
+    {
+        err_code = ble_nus_string_send(&m_nus, data, len);
+        NRF_LOG_INFO("NUS send error %d \r\n", err_code);
+        if ( (err_code != NRF_ERROR_INVALID_STATE) && (err_code != NRF_ERROR_BUSY) )
+        {
+            
+        }
+    } while (err_code == NRF_ERROR_BUSY);
+
+}
+
 uint32_t m_vaccum_init(m_ble_service_handle_t * p_handle, m_vaccum_init_t const * const p_vaccum_init)
 {
+    uint32_t err_code;
+
     NULL_PARAM_CHECK(p_handle);
     NULL_PARAM_CHECK(p_vaccum_init);
 
@@ -76,6 +121,22 @@ uint32_t m_vaccum_init(m_ble_service_handle_t * p_handle, m_vaccum_init_t const 
     m_vaccum_param = p_vaccum_init->vaccum_param;
 
     //set gpio config
+    #if 1
+    app_timer_periodic_handler(NULL);
+
+    err_code = app_timer_create(&vaccum_app_timer_id,
+                                APP_TIMER_MODE_REPEATED,
+                                app_timer_periodic_handler);
+    RETURN_IF_ERROR(err_code);
+
+    err_code = app_timer_start(vaccum_app_timer_id,
+                               APP_TIMER_TICKS(1000), NULL);
+    RETURN_IF_ERROR(err_code);
+    #else
+    UNUSED_VARIABLE(err_code);
+    UNUSED_VARIABLE(app_timer_periodic_handler);
+    UNUSED_VARIABLE(vaccum_app_timer_id);
+    #endif
 
     return NRF_SUCCESS;
 }

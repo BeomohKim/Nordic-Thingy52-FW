@@ -257,7 +257,6 @@ static void thingy_init(void)
 {
     uint32_t                 err_code;
     m_ui_init_t              ui_params;
-    m_environment_init_t     env_params;
     m_motion_init_t          motion_params;
     m_ble_init_t             ble_params;
     batt_meas_init_t         batt_meas_init = BATT_MEAS_PARAM_CFG;
@@ -276,20 +275,11 @@ static void thingy_init(void)
                          &ui_params);
     APP_ERROR_CHECK(err_code);
 
-    /**@brief Initialize environment module. */
-    env_params.p_twi_instance = &m_twi_sensors;
-    err_code = m_environment_init(&m_ble_service_handles[THINGY_SERVICE_ENVIRONMENT],
-                                  &env_params);
-    APP_ERROR_CHECK(err_code);
-
     /**@brief Initialize motion module. */
     motion_params.p_twi_instance = &m_twi_sensors;
 
     err_code = m_motion_init(&m_ble_service_handles[THINGY_SERVICE_MOTION],
                              &motion_params);
-    APP_ERROR_CHECK(err_code);
-
-    err_code = m_sound_init(&m_ble_service_handles[THINGY_SERVICE_SOUND]);
     APP_ERROR_CHECK(err_code);
 
     /**@brief Initialize the battery measurement. */

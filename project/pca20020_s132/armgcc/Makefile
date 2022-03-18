@@ -98,11 +98,9 @@ $(abspath ../../../sdk_components/ble/ble_advertising/ble_advertising.c) \
 $(abspath ../../../sdk_components/ble/common/ble_conn_params.c) \
 $(abspath ../../../sdk_components/ble/common/ble_srv_common.c) \
 $(abspath ../../../sdk_components/ble/common/ble_conn_state.c) \
-$(abspath ../../../source/ble_services/ble_tes.c) \
 $(abspath ../../../source/ble_services/ble_tcs.c) \
 $(abspath ../../../source/ble_services/ble_uis.c) \
 $(abspath ../../../source/ble_services/ble_tms.c) \
-$(abspath ../../../source/ble_services/ble_tss.c) \
 $(abspath ../../../sdk_components/drivers_nrf/common/nrf_drv_common.c) \
 $(abspath ../../../sdk_components/drivers_nrf/gpiote/nrf_drv_gpiote.c) \
 $(abspath ../../../sdk_components/drivers_nrf/twi_master/nrf_drv_twi.c) \
