@@ -56,6 +56,7 @@ $(abspath ../../../source/modules/m_motion_flash.c) \
 $(abspath ../../../source/modules/m_ui.c) \
 $(abspath ../../../source/modules/m_ui_flash.c) \
 $(abspath ../../../source/modules/m_batt_meas.c) \
+$(abspath ../../../source/modules/m_vaccum.c) \
 $(abspath ../../../source/drivers/drv_gas_sensor.c) \
 $(abspath ../../../source/drivers/drv_ccs811.c) \
 $(abspath ../../../source/drivers/drv_pressure.c) \
@@ -143,6 +144,7 @@ $(abspath ../../../sdk_components/libraries/log/src/nrf_log_backend_serial.c) \
 $(abspath ../../../source/util/nrf_dfu_flash_buttonless.c) \
 $(abspath ../../../sdk_components/ble/ble_services/ble_dfu/ble_dfu.c) \
 $(abspath ../../../sdk_components/ble/ble_services/ble_bas/ble_bas.c) \
+$(abspath ../../../sdk_components/ble/ble_services/ble_nus/ble_nus.c) \
 $(abspath ../../../sdk_components/libraries/bootloader/dfu/nrf_dfu_settings.c) \
 $(abspath ../../../sdk_components/libraries/crc32/crc32.c) \
 $(abspath ../../../sdk_components/libraries/strerror/nrf_strerror.c) \
@@ -169,6 +171,7 @@ INC_PATHS += -I$(abspath ../../../libs/eMD6/core/mpl)
 INC_PATHS += -I$(abspath ../../../libs/sr3_audio)
 INC_PATHS += -I$(abspath ../../../sdk_components/ble/ble_advertising)
 INC_PATHS += -I$(abspath ../../../sdk_components/ble/ble_services/ble_bas)
+INC_PATHS += -I$(abspath ../../../sdk_components/ble/ble_services/ble_nus)
 INC_PATHS += -I$(abspath ../../../sdk_components/ble/ble_services/ble_dfu)
 INC_PATHS += -I$(abspath ../../../sdk_components/ble/common)
 INC_PATHS += -I$(abspath ../../../sdk_components/device)
@@ -258,7 +261,6 @@ CFLAGS += -DUSE_DMP
 CFLAGS += -DEMPL_TARGET_NRF52
 CFLAGS += -DNRF_LOG_USES_RTT
 CFLAGS += -DNRF_LOG_USES_RTT=1
-CFLAGS += -DBLE_DFU_APP_SUPPORT
 CFLAGS += -DNRF_DFU_SETTINGS_VERSION=1
 CFLAGS += -DAUDIO_EQ_DEF=3
 CFLAGS += -DHAL_NFC_ENGINEERING_BC_FTPAN_WORKAROUND

@@ -62,6 +62,7 @@
 #include "m_motion.h"
 #include "m_ui.h"
 #include "m_batt_meas.h"
+#include "m_vaccum.h"
 #include "drv_ext_light.h"
 #include "drv_ext_gpio.h"
 #include "nrf_delay.h"
@@ -260,6 +261,10 @@ static void thingy_init(void)
     m_motion_init_t          motion_params;
     m_ble_init_t             ble_params;
     batt_meas_init_t         batt_meas_init = BATT_MEAS_PARAM_CFG;
+    m_vaccum_init_t          vaccum_init;
+
+    err_code = m_vaccum_init(&m_ble_service_handles[A9SENSE_SERVICE_VACCUM], &vaccum_init);
+    APP_ERROR_CHECK(err_code);
 
     /**@brief Initialize the TWI manager. */
     err_code = twi_manager_init(APP_IRQ_PRIORITY_THREAD);

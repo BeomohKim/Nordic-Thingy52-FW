@@ -47,7 +47,7 @@
 #define CENTRAL_LINK_COUNT              0                                           /**< Number of central links used by the application. When changing this number remember to adjust the RAM settings*/
 #define PERIPHERAL_LINK_COUNT           1                                           /**< Number of peripheral links used by the application. When changing this number remember to adjust the RAM settings*/
 
-#define DEVICE_NAME                     "Thingy"                                    /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "DRND_A9"                                    /**< Name of device. Will be included in the advertising data. */
 #define NORDIC_COMPANY_ID               0x0059                                      /**< Nordic Semiconductor ASA company identifier. */
 
 #define APP_ADV_INTERVAL_MS             380                                         /**< The advertising interval in ms. */
@@ -66,8 +66,9 @@
 #define THINGY_SERVICE_UI               2
 #define THINGY_SERVICE_SOUND            3
 #define THINGY_SERVICE_BATTERY          4
-    
-#define THINGY_SERVICES_MAX             5
+#define A9SENSE_SERVICE_VACCUM          5
+
+#define THINGY_SERVICES_MAX             6
 
 /**@brief Thingy default beacon configuration. Eddystone url */
 #define THINGY_BEACON_ADV_INTERVAL      760                 /**< The Beacon's advertising interval, in milliseconds*/
@@ -97,7 +98,7 @@ Version numbers are changed for releases. */
     .dev_name =                                       \
     {                                                 \
         .name = DEVICE_NAME,                          \
-        .len = 6                                      \
+        .len = 7                                      \
     },                                                \
     .adv_params =                                     \
     {                                                 \

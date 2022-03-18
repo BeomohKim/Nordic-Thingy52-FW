@@ -49,6 +49,7 @@
 #include "app_timer.h"
 #include "fstorage.h"
 #include "m_ble.h"
+#include "m_vaccum.h"
 #include "m_ble_flash.h"
 #include "drv_nfc.h"
 #include "thingy_config.h"
@@ -600,7 +601,7 @@ static uint32_t advertising_init(void)
 {
     uint32_t      err_code;
     ble_advdata_t advdata;
-    ble_uuid_t    adv_uuids = {BLE_UUID_TCS_SERVICE, m_tcs.uuid_type};
+    ble_uuid_t    adv_uuids = {BLE_UUID_NUS_SERVICE, m_nus.uuid_type};
     
     // Build advertising data struct to pass into @ref ble_advertising_init.
     memset(&advdata, 0, sizeof(advdata));
